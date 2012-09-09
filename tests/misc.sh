@@ -130,7 +130,7 @@ supported()
 		fi
 		;;
 	lchmod)
-		if [ ${os} != "FreeBSD" -a ${os} != "Darwin" ]; then
+		if [ ${os} != "FreeBSD" ]; then
 			return 1
 		fi
 		;;
