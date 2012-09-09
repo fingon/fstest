@@ -107,7 +107,11 @@ test_check()
 
 namegen()
 {
-	echo "fstest_`dd if=/dev/urandom bs=1k count=1 2>/dev/null | md5sum  | cut -f1 -d' '`"
+	if [ ${os} == 'Darwin' ] ; then
+		echo  "fstest_`dd if=/dev/urandom bs=1k count=1 2>/dev/null | md5  | cut -f1 -d' '`"
+	else
+		echo "fstest_`dd if=/dev/urandom bs=1k count=1 2>/dev/null | md5sum  | cut -f1 -d' '`"
+	fi
 }
 
 quick_exit()
@@ -121,12 +125,12 @@ supported()
 {
 	case "${1}" in
 	chflags)
-		if [ ${os} != "FreeBSD" -o ${fs} != "UFS" ]; then
+		if [ '(' ${os} != "FreeBSD"  -a ${os} != "Darwin" ')' -o ${fs} != "UFS" ]; then
 			return 1
 		fi
 		;;
 	lchmod)
-		if [ ${os} != "FreeBSD" ]; then
+		if [ ${os} != "FreeBSD" -a ${os} != "Darwin" ]; then
 			return 1
 		fi
 		;;
