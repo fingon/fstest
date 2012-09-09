@@ -69,13 +69,18 @@ expect()
 {
 	e="${1}"
 	shift
-	r=`${fstest} $* 2>/dev/null | tail -1`
+	tmp=fstest_$$.err
+	r=`${fstest} $* 2>${tmp} | tail -1`
 	echo "${r}" | egrep '^'${e}'$' >/dev/null 2>&1
 	if [ $? -eq 0 ]; then
 		echo "ok ${ntest}"
 	else
 		echo "not ok ${ntest}"
+		echo "# ${ntest}: expected '${e}', received '${r}'"
+		echo "# ${ntest}: executed '${fstest} '" "$@" "'"
+		awk '{print "# '${ntest}': err: " $0;}' ${tmp}
 	fi
+	rm ${tmp}
 	ntest=`expr $ntest + 1`
 }
 
@@ -101,6 +106,7 @@ test_check()
 		echo "ok ${ntest}"
 	else
 		echo "not ok ${ntest}"
+		echo "# ${ntest}: failed check: '$*'"
 	fi
 	ntest=`expr $ntest + 1`
 }
