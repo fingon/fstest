@@ -95,5 +95,5 @@ test_check $ctime1 -lt $ctime2
 expect 0 stat ${n0} size
 expect 0 unlink ${n0}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n1}

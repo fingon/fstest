@@ -27,5 +27,5 @@ expect 0 -u 65534 -g 65534 chmod ${n1}/${n2} 0420
 expect 0420 -u 65534 -g 65534 stat ${n1}/${n2} mode
 expect 0 -u 65534 -g 65534 unlink ${n1}/${n2}
 expect 0 rmdir ${n1}
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

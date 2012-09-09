@@ -49,5 +49,5 @@ Linux)
 esac
 expect 0 unlink ${n1}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

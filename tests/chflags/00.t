@@ -174,5 +174,5 @@ for flag in UF_IMMUTABLE SF_IMMUTABLE none; do
 done
 expect 0 unlink ${n0}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n2}

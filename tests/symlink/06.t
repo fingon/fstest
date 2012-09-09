@@ -30,5 +30,5 @@ expect 0 unlink ${n1}/${n2}
 
 expect 0 rmdir ${n1}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

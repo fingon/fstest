@@ -41,5 +41,5 @@ expect EACCES -u 65533 -g 65533 open ${n1} O_RDONLY,O_TRUNC
 
 expect 0 -u 65534 -g 65534 unlink ${n1}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

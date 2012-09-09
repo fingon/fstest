@@ -66,5 +66,5 @@ expect EPERM lchflags ${n1} SF_SNAPSHOT
 expect none lstat ${n1} flags
 expect 0 unlink ${n1}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

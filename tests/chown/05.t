@@ -28,5 +28,5 @@ expect 0 -u 65534 -g 65533,65534 -- chown ${n1}/${n2} -1 65534
 expect 65534,65534 -u 65534 -g 65534 stat ${n1}/${n2} uid,gid
 expect 0 -u 65534 -g 65534 unlink ${n1}/${n2}
 expect 0 rmdir ${n1}
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

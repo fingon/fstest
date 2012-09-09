@@ -20,5 +20,5 @@ expect 0 chown ${n1} 65534 65534
 expect 0 chmod ${n1} 0444
 expect EACCES -u 65534 -g 65534 truncate ${n1} 123
 expect 0 unlink ${n1}
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

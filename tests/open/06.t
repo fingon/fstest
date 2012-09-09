@@ -98,5 +98,5 @@ expect 0 -u 65534 -g 65534 chmod ${n0} 0755
 cd ${n0}
 expect 0 -u 65534 -g 65534 unlink ${n1}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

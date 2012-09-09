@@ -111,5 +111,5 @@ ctime=`${fstest} stat ${n0} ctime`
 test_check $time -lt $ctime
 expect 0 unlink ${n0}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n2}

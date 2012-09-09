@@ -28,5 +28,5 @@ expect 0 -u 65534 -g 65534 truncate ${n1}/${n2} 1234
 expect 1234 -u 65534 -g 65534 stat ${n1}/${n2} size
 expect 0 -u 65534 -g 65534 unlink ${n1}/${n2}
 expect 0 rmdir ${n1}
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

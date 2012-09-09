@@ -50,5 +50,5 @@ expect EPERM -u 65533 -g 65533 lchflags ${n1} UF_IMMUTABLE
 expect none lstat ${n1} flags
 expect 0 unlink ${n1}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

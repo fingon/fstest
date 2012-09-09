@@ -78,5 +78,5 @@ expect 0 lchflags ${n1} none
 expect 0 unlink ${n1}
 
 sysctl security.jail.chflags_allowed=${old} >/dev/null
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

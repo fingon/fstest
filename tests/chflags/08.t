@@ -66,5 +66,5 @@ done
 expect 0 lchflags ${n1} none
 expect 0 unlink ${n1}
 
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}

@@ -372,5 +372,5 @@ test_check $ctime1 -eq $ctime2
 expect 0 unlink ${n0}
 
 # 186
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n2}

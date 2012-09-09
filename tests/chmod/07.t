@@ -27,5 +27,5 @@ expect EPERM -u 65534 -g 65534 chmod ${n1}/${n2} 0641
 expect 0642 stat ${n1}/${n2} mode
 expect 0 unlink ${n1}/${n2}
 expect 0 rmdir ${n1}
-cd ${cdir}
+cd "${cdir}"
 expect 0 rmdir ${n0}
