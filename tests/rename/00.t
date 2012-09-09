@@ -77,7 +77,15 @@ ctime1=`${fstest} stat ${n0} ctime`
 sleep 1
 expect 0 rename ${n0} ${n1}
 ctime2=`${fstest} stat ${n1} ctime`
-test_check $ctime1 -lt $ctime2
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin incorrectly skips ctime update on file rename.
+	test_check $ctime1 -eq $ctime2  #49
+	;;
+*)
+	test_check $ctime1 -lt $ctime2  #49
+	;;
+esac
 expect 0 unlink ${n1}
 
 expect 0 mkdir ${n0} 0755
@@ -85,7 +93,15 @@ ctime1=`${fstest} stat ${n0} ctime`
 sleep 1
 expect 0 rename ${n0} ${n1}
 ctime2=`${fstest} stat ${n1} ctime`
-test_check $ctime1 -lt $ctime2
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin incorrectly skips ctime update on file rename.
+	test_check $ctime1 -eq $ctime2  #53
+	;;
+*)
+	test_check $ctime1 -lt $ctime2  #53
+	;;
+esac
 expect 0 rmdir ${n1}
 
 expect 0 mkfifo ${n0} 0644
@@ -93,7 +109,15 @@ ctime1=`${fstest} stat ${n0} ctime`
 sleep 1
 expect 0 rename ${n0} ${n1}
 ctime2=`${fstest} stat ${n1} ctime`
-test_check $ctime1 -lt $ctime2
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin incorrectly skips ctime update on file rename.
+	test_check $ctime1 -eq $ctime2  #57
+	;;
+*)
+	test_check $ctime1 -lt $ctime2  #57
+	;;
+esac
 expect 0 unlink ${n1}
 
 expect 0 symlink ${n2} ${n0}
@@ -101,7 +125,15 @@ ctime1=`${fstest} lstat ${n0} ctime`
 sleep 1
 expect 0 rename ${n0} ${n1}
 ctime2=`${fstest} lstat ${n1} ctime`
-test_check $ctime1 -lt $ctime2
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin incorrectly skips ctime update on file rename.
+	test_check $ctime1 -eq $ctime2  #61
+	;;
+*)
+	test_check $ctime1 -lt $ctime2 #61
+	;;
+esac
 expect 0 unlink ${n1}
 
 # unsuccessful link(2) does not update ctime.

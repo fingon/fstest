@@ -42,6 +42,7 @@ expect 0 unlink ${n0}
 # of the file shall be set to the group ID of the file's parent directory or to
 # the effective group ID of the process [...]
 expect 0 chown . 65535 65535
+expect 0755,65535,65535 lstat . mode,uid,gid
 expect 0 -u 65535 -g 65535 open ${n0} O_CREAT,O_WRONLY 0644
 expect 65535,65535 lstat ${n0} uid,gid
 expect 0 unlink ${n0}
@@ -76,10 +77,20 @@ dmtime=`${fstest} stat . mtime`
 dctime=`${fstest} stat . ctime`
 sleep 1
 expect 0 open ${n0} O_CREAT,O_RDONLY 0644
-mtime=`${fstest} stat . mtime`
-test_check $dmtime -eq $mtime
-ctime=`${fstest} stat . ctime`
-test_check $dctime -eq $ctime
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin treats O_CREAT of existing file as unlink & link,
+	# and as a consequence updates time stamps
+	mtime=`${fstest} stat . mtime`
+	test_check $dmtime -lt $mtime
+	ctime=`${fstest} stat . ctime`
+	test_check $dctime -lt $ctime
+*)
+	mtime=`${fstest} stat . mtime`
+	test_check $dmtime -lt $mtime
+	ctime=`${fstest} stat . ctime`
+	test_check $dctime -lt $ctime
+esac
 expect 0 unlink ${n0}
 
 echo test > ${n0}

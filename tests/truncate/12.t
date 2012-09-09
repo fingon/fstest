@@ -13,7 +13,7 @@ n0=`namegen`
 expect 0 create ${n0} 0644
 r=`${fstest} truncate ${n0} 999999999999999 2>/dev/null`
 case "${r}" in
-EFBIG|EINVAL)
+EFBIG|EINVAL|ENOSPC)
 	expect 0 stat ${n0} size
 	;;
 0)

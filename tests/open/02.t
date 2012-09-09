@@ -6,9 +6,24 @@ desc="open returns ENAMETOOLONG if a component of a pathname exceeded 255 charac
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..4"
+case ${os}:${fs} in
+Darwin:HFS+)
+	echo "1..3"
+	;;
+*)
+	echo "1..4"
+	;;
+esac
 
 expect 0 open ${name255} O_CREAT 0620
 expect 0620 stat ${name255} mode
 expect 0 unlink ${name255}
-expect ENAMETOOLONG open ${name256} O_CREAT 0620
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin unfortunately creates the file, which then can't
+	# be deleted short of recreating the filesystem, loosing all data.
+	;;
+*)
+	expect ENAMETOOLONG open ${name256} O_CREAT 0620
+	;;
+esac

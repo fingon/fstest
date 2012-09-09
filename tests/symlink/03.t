@@ -6,7 +6,14 @@ desc="symlink returns ENAMETOOLONG if an entire length of either path name excee
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..14"
+case ${os}:${fs} in
+Darwin:HFS+)
+	echo "1..10"
+	;;
+*)
+	echo "1..14"
+	;;
+esac
 
 n0=`namegen`
 
@@ -16,12 +23,20 @@ expect 0 mkdir ${name255} 0755
 expect 0 mkdir ${name255}/${name255} 0755
 expect 0 mkdir ${name255}/${name255}/${name255} 0755
 expect 0 mkdir ${path1021} 0755
-expect 0 symlink ${n0} ${path1023}
-expect 0 unlink ${path1023}
-create_too_long
-expect ENAMETOOLONG symlink ${n0} ${too_long}
-expect ENAMETOOLONG symlink ${too_long} ${n0}
-unlink_too_long
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin unfortunately creates the file, which then can't
+	# be deleted short of recreating the filesystem, loosing all data.
+	;;
+*)
+	expect 0 symlink ${n0} ${path1023}
+	expect 0 unlink ${path1023}
+	create_too_long
+	expect ENAMETOOLONG symlink ${n0} ${too_long}
+	expect ENAMETOOLONG symlink ${too_long} ${n0}
+	unlink_too_long
+	;;
+esac
 expect 0 rmdir ${path1021}
 expect 0 rmdir ${name255}/${name255}/${name255}
 expect 0 rmdir ${name255}/${name255}

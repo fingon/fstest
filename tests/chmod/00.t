@@ -48,6 +48,7 @@ expect 0 unlink ${n0}
 expect 0 unlink ${n1}
 
 if supported lchmod; then
+	# 25 - 35
 	expect 0 create ${n0} 0644
 	expect 0 symlink ${n0} ${n1}
 	expect 0644 stat ${n1} mode
@@ -62,6 +63,7 @@ if supported lchmod; then
 fi
 
 # successful chmod(2) updates ctime.
+# 25 / 36
 expect 0 create ${n0} 0644
 ctime1=`${fstest} stat ${n0} ctime`
 sleep 1
@@ -87,6 +89,7 @@ test_check $ctime1 -lt $ctime2
 expect 0 unlink ${n0}
 
 if supported lchmod; then
+	# 48 - 51
 	expect 0 symlink ${n1} ${n0}
 	ctime1=`${fstest} lstat ${n0} ctime`
 	sleep 1
@@ -97,6 +100,7 @@ if supported lchmod; then
 fi
 
 # unsuccessful chmod(2) does not update ctime.
+# 37 / 52
 expect 0 create ${n0} 0644
 ctime1=`${fstest} stat ${n0} ctime`
 sleep 1
@@ -122,6 +126,7 @@ test_check $ctime1 -eq $ctime2
 expect 0 unlink ${n0}
 
 if supported lchmod; then
+	# 64 - 67
 	expect 0 symlink ${n1} ${n0}
 	ctime1=`${fstest} lstat ${n0} ctime`
 	sleep 1
@@ -137,6 +142,7 @@ fi
 # (set-group-ID on execution) in the file's mode shall be cleared upon
 # successful return from chmod().
 
+# 49 / 68
 expect 0 create ${n0} 0755
 expect 0 chown ${n0} 65535 65535
 expect 0 -u 65535 -g 65535 chmod ${n0} 02755
@@ -159,3 +165,5 @@ expect 0 unlink ${n0}
 
 cd "${cdir}"
 expect 0 rmdir ${n2}
+
+# 58 / 77 tests

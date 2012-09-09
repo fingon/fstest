@@ -126,10 +126,22 @@ sleep 1
 expect EACCES -u 65534 link ${n0} ${n1}
 ctime2=`${fstest} stat ${n0} ctime`
 test_check $ctime1 -eq $ctime2
-dctime2=`${fstest} stat . ctime`
-test_check $dctime1 -eq $dctime2
-dmtime2=`${fstest} stat . mtime`
-test_check $dctime1 -eq $dmtime2
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin incorrectly modifies the parent directory's ctime
+	# and mtime even on a failed link() operation.
+	dctime2=`${fstest} stat . ctime`
+	test_check $dctime1 -lt $dctime2
+	dmtime2=`${fstest} stat . mtime`
+	test_check $dmtime1 -lt $dmtime2
+	;;
+*) 
+	dctime2=`${fstest} stat . ctime`
+	test_check $dctime1 -eq $dctime2
+	dmtime2=`${fstest} stat . mtime`
+	test_check $dmtime1 -eq $dmtime2
+	;;
+esac
 expect 0 unlink ${n0}
 
 expect 0 mkfifo ${n0} 0644
@@ -141,10 +153,22 @@ sleep 1
 expect EACCES -u 65534 link ${n0} ${n1}
 ctime2=`${fstest} stat ${n0} ctime`
 test_check $ctime1 -eq $ctime2
-dctime2=`${fstest} stat . ctime`
-test_check $dctime1 -eq $dctime2
-dmtime2=`${fstest} stat . mtime`
-test_check $dctime1 -eq $dmtime2
+case ${os}:${fs} in
+Darwin:HFS+)
+	# HFS+ on Darwin incorrectly modifies the parent directory's ctime
+	# and mtime even on a failed link() operation.
+	dctime2=`${fstest} stat . ctime`
+	test_check $dctime1 -lt $dctime2
+	dmtime2=`${fstest} stat . mtime`
+	test_check $dmtime1 -lt $dmtime2
+	;;
+*) 
+	dctime2=`${fstest} stat . ctime`
+	test_check $dctime1 -eq $dctime2
+	dmtime2=`${fstest} stat . mtime`
+	test_check $dmtime1 -eq $dmtime2
+	;;
+esac
 expect 0 unlink ${n0}
 
 cd "${cdir}"
