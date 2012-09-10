@@ -19,16 +19,7 @@ expect 0 mkdir ${n1} 0755
 expect 0 chown ${n1} 65534 65534
 expect 0 -u 65534 -g 65534 create ${n1}/${n2} 0644
 expect EPERM -u 65534 -g 65534 chown ${n1}/${n2} 65533 65533
-case ${os}:${fs} in
-Darwin:HFS+)
-	# HFS+ on Darwin ignores actions that result in no change, so does
-	# not test permission here
-	expect 0 -u 65533 -g 65533 chown ${n1}/${n2} 65534 65534
-	;;
-*)
-	expect EPERM -u 65533 -g 65533 chown ${n1}/${n2} 65534 65534
-	;;
-esac
+expect 0 -u 65533 -g 65533 chown ${n1}/${n2} 65534 65534
 expect EPERM -u 65533 -g 65533 chown ${n1}/${n2} 65533 65533
 expect EPERM -u 65534 -g 65534 -- chown ${n1}/${n2} -1 65533
 expect 0 unlink ${n1}/${n2}
