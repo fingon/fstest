@@ -7,7 +7,7 @@ dir=`dirname $0`
 . ${dir}/../misc.sh
 
 case ${os}:${fs} in
-Darwin:HFS+)
+Darwin:HFS+|Darwin:ZFS)
 	echo "1..11"
 	;;
 *)
@@ -23,7 +23,7 @@ expect 0 open ${path1023} O_CREAT 0642
 expect 0642 stat ${path1023} mode
 expect 0 unlink ${path1023}
 case ${os}:${fs} in
-Darwin:HFS+)
+Darwin:HFS+|Darwin:ZFS)
 	# HFS+ on Darwin unfortunately creates the file, which then can't
 	# be deleted short of recreating the filesystem, loosing all data.
 	;;
