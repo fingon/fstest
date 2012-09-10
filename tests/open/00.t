@@ -6,7 +6,7 @@ desc="open opens (and eventually creates) a file"
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..47"
+echo "1..48"
 
 n0=`namegen`
 n1=`namegen`
@@ -85,11 +85,13 @@ Darwin:HFS+)
 	test_check $dmtime -lt $mtime
 	ctime=`${fstest} stat . ctime`
 	test_check $dctime -lt $ctime
+	;;
 *)
 	mtime=`${fstest} stat . mtime`
 	test_check $dmtime -lt $mtime
 	ctime=`${fstest} stat . ctime`
 	test_check $dctime -lt $ctime
+	;;
 esac
 expect 0 unlink ${n0}
 
