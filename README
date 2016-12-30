@@ -1,5 +1,3 @@
-$FreeBSD: src/tools/regression/fstest/README,v 1.1 2007/01/28 00:10:28 pjd Exp $
-
 Few notes on how to use fstest in short steps:
 
 	# cd fstest
@@ -15,10 +13,12 @@ Few notes on how to use fstest in short steps:
 	The test must be run as root user.
 	# prove -r /path/to/fstest/
 
+^ prove comes from Perl; if you do not have it, install it
+
 That's all. Enjoy.
 
-Currently supported operating systems: FreeBSD, Solaris, Linux.
-Currently supported file system types: UFS, ZFS, ext3, ntfs-3g, xfs.
+Currently supported operating systems: FreeBSD, Solaris, Linux, Darwin (OS X).
+Currently supported file system types: UFS, ZFS, ext3, ntfs-3g, xfs, HFS+.
 
 Author: 
 Pawel Jakub Dawidek <pjd@FreeBSD.org>

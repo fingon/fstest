@@ -83,7 +83,7 @@ expect 0 chmod ${n0} 06555
 expect 06555 lstat ${n0} mode
 expect 0 chown ${n0} 65532 65531
 case "${os}" in
-Linux)
+Linux | Darwin)
 	expect 0555 lstat ${n0} mode
         ;;
 *)
@@ -98,7 +98,7 @@ expect 0 chmod ${n0} 06555
 expect 06555 lstat ${n0} mode
 expect 0 chown ${n0} 65534 65533
 case "${os}" in
-Linux)
+Linux | Darwin)
         expect 0555 lstat ${n0} mode
         ;;
 *)
@@ -114,7 +114,7 @@ expect 0 chmod ${n0} 06555
 expect 06555 lstat ${n0} mode
 expect 0 chown ${n0} 0 0
 case "${os}" in
-Linux)
+Linux | Darwin)
         expect 0555 lstat ${n0} mode
         ;;
 *)

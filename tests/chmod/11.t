@@ -6,7 +6,14 @@ desc="chmod returns EFTYPE if the effective user ID is not the super-user, the m
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..20"
+case "${os}" in
+    FreeBSD | SunOS | Linux)
+        echo "1..20"
+        ;;
+    *)
+        echo "1..18"
+        ;;
+esac
 
 n0=`namegen`
 n1=`namegen`
