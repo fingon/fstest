@@ -88,9 +88,9 @@ Darwin:HFS+)
 	;;
 *)
 	mtime=`${fstest} stat . mtime`
-	test_check $dmtime -lt $mtime
+	test_check $dmtime -eq $mtime
 	ctime=`${fstest} stat . ctime`
-	test_check $dctime -lt $ctime
+	test_check $dctime -eq $ctime
 	;;
 esac
 expect 0 unlink ${n0}
