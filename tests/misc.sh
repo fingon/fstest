@@ -136,10 +136,15 @@ supported()
 		fi
 		;;
 	lchmod)
-		if [ ${os} != "FreeBSD" ]; then
+		if [ ! "${os}" = "FreeBSD" ]; then
 			return 1
 		fi
 		;;
+        supgroups)
+	        if [ "${os}" = "Darwin"  -a "${fs}" = "fuse" ]; then 
+			return 1
+		fi
+                ;;
 	esac
 	return 0
 }

@@ -4,5 +4,6 @@
 # Known operating systems: FreeBSD, SunOS, Linux, Darwin (=MacOSX)
 os=`uname`
 
-# Known file systems: UFS, ZFS, ext3, ntfs-3g, xfs, HFS+
-fs="HFS+"
+# Known file systems: UFS, ZFS, ext3, ntfs-3g, xfs, HFS+, fuse
+#fs="fuse"
+fs="fuse"
