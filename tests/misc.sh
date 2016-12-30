@@ -69,7 +69,7 @@ expect()
 {
 	e="${1}"
 	shift
-	tmp=fstest_$$.err
+	tmp=/tmp/fstest_$$.err
 	r=`${fstest} $* 2>${tmp} | tail -1`
 	echo "${r}" | egrep '^'${e}'$' >/dev/null 2>&1
 	if [ $? -eq 0 ]; then
