@@ -7,7 +7,7 @@ dir=`dirname $0`
 . ${dir}/../misc.sh
 
 case ${os}:${fs} in
-Darwin:HFS+|Darwin:ZFS)
+Darwin:HFS+|Darwin:ZFS|Darwin:apfs)
 	echo "1..3"
 	;;
 *)
@@ -19,9 +19,9 @@ expect 0 open ${name255} O_CREAT 0620
 expect 0620 stat ${name255} mode
 expect 0 unlink ${name255}
 case ${os}:${fs} in
-Darwin:HFS+|Darwin:ZFS)
-	# HFS+ on Darwin unfortunately creates the file, which then can't
-	# be deleted short of recreating the filesystem, loosing all data.
+Darwin:HFS+|Darwin:ZFS|Darwin:apfs)
+# HFS+ on Darwin unfortunately creates the file, which then can be
+# removed only with rename + rm.
 	;;
 *)
 	expect ENAMETOOLONG open ${name256} O_CREAT 0620
