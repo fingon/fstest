@@ -7,7 +7,7 @@ dir=`dirname $0`
 . ${dir}/../misc.sh
 
 case  ${os}:${fs} in
-Darwin:HFS+|Darwin:ZFS)
+Darwin:HFS+|Darwin:ZFS|Darwin:apfs)
 	echo "1..8"
 	;;
 *)
@@ -20,9 +20,9 @@ expect 0 mkdir ${name255}/${name255} 0755
 expect 0 mkdir ${name255}/${name255}/${name255} 0755
 expect 0 mkdir ${path1021} 0755
 case ${os}:${fs} in
-Darwin:HFS+|Darwin:ZFS)
-	# HFS+ on Darwin unfortunately creates the file, which then can't
-	# be deleted short of recreating the filesystem, loosing all data.
+Darwin:HFS+|Darwin:ZFS|Darwin:apfs)
+# HFS+ on Darwin unfortunately creates the file, which then can be
+# removed only with rename + rm.
 	;;
 *)
 	expect 0 mkfifo ${path1023} 0644
